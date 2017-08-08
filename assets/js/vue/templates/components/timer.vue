@@ -66,7 +66,7 @@
                 this.years = diff.years
                 this.months = diff.months
                 this.days = diff.days
-                this.weeks = diff.weeks
+                this.weeks = diff.totalWeeks
                 this.hours = diff.hours
                 this.minutes = diff.minutes
                 this.seconds = diff.seconds
