@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="container">
-            <timer :name="alice.name" :end="alice.end"></timer>
             <timer :name="kokos.name" :end="kokos.end"></timer>
+            <timer :name="alice.name" :end="alice.end"></timer>
         </div>
         <footer class="footer">
             <div class="container">
