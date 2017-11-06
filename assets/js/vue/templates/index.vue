@@ -23,7 +23,7 @@
                 },
                 kokos: {
                     name: 'Kokos',
-                    end: new Date('2018-03-23T00:00:00')
+                    end: new Date('2018-03-26T00:00:00')
                 }
             }
         }
