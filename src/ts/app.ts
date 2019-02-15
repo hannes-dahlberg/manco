@@ -10,8 +10,9 @@ import Vue from "vue";
 
 // Index component
 import IndexComponent from "./components/index.component.vue";
+import { tooltipDirective } from "./directives/tooltip.directive";
 
-// Router and store
+Vue.directive("tooltip", tooltipDirective);
 
 const vue = new Vue({
   el: "#app",
