@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container">
+    <div class="container mt-5">
       <timerComponent name="Lukas" date="2018-03-25 04:08"></timerComponent>
       <timerComponent name="Alice" date="2016-06-20 18:29"></timerComponent>
     </div>
