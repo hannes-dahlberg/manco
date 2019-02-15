@@ -1,20 +1,30 @@
 <template>
   <div>
-    <h1 class="text-center" style="color: #eee">
+    <h1 class="text-center" style="color: #eee" v-tooltip :title="end.format('YYYY-MM-DD HH:mm')">
       <span v-if="now > end">{{ name }}</span>
       <span v-else>Nedräkning</span>
     </h1>
     <h2 class="text-center">
       <span v-if="years">{{ years }} år</span>
-      <span v-if="months">
-        {{ months }}
-        <span v-if="months == 1">månad</span>
-        <span v-else>månader</span>
+      <span
+        v-tooltip
+        :title="`Totalt ${numberFormat(totalMonths)} ${totalMonths > 1 ? `månader` : 'månad'}`"
+      >
+        <span v-if="months">
+          {{ months }}
+          <span v-if="months == 1">månad</span>
+          <span v-else>månader</span>
+        </span>
       </span>
-      <span v-if="days">
-        {{ days }}
-        <span v-if="days == 1">dag</span>
-        <span v-else>dagar</span>
+      <span
+        v-tooltip
+        :title="`Totalt ${numberFormat(totalDays)} ${totalDays > 1 ? `dagar` : 'dag'}`"
+      >
+        <span v-if="days">
+          {{ days }}
+          <span v-if="days == 1">dag</span>
+          <span v-else>dagar</span>
+        </span>
       </span>
       <span v-if="totalWeeks">
         ({{ totalWeeks }}
@@ -22,9 +32,24 @@
         <span v-else>veckor</span>)
       </span>
       <br>
-      <span v-if="hours">{{ hours }}h</span>
-      <span v-if="minutes">{{ minutes }}m</span>
-      <span v-if="seconds">{{ seconds }}s</span>
+      <span
+        v-tooltip
+        :title="`Totalt ${numberFormat(totalHours)} ${totalHours > 1 ? `timmar` : 'timme'}`"
+      >
+        <span v-if="hours">{{ hours }}h</span>
+      </span>
+      <span
+        v-tooltip
+        :title="`Totalt ${numberFormat(totalMinutes)} ${totalMinutes > 1 ? `minuter` : 'minut'}`"
+      >
+        <span v-if="minutes">{{ minutes }}m</span>
+      </span>
+      <span
+        v-tooltip
+        :title="`Totalt ${numberFormat(totalSeconds)} ${totalSeconds > 1 ? `sekunder` : 'sekund'}`"
+      >
+        <span v-if="seconds">{{ seconds }}s</span>
+      </span>
     </h2>
   </div>
 </template>
@@ -93,7 +118,7 @@ export default class TimerComponent extends Vue {
     this.seconds = this.getDiff("seconds", 60);
     this.totalSeconds = this.getDiff("seconds");
 
-    this.totalDays = this.getDiff("weeks");
+    this.totalWeeks = this.getDiff("weeks");
   }
 
   public getDiff(diffType: unitOfTime.Diff, left?: number): number {
@@ -104,6 +129,12 @@ export default class TimerComponent extends Vue {
       diff = this.end.diff(this.now, diffType);
     }
     return left === undefined ? Math.floor(diff) : diff % left;
+  }
+
+  public numberFormat(value: number): string {
+    return Intl.NumberFormat()
+      .format(value)
+      .replace(/,/g, " ");
   }
 }
 </script>
