@@ -34,8 +34,6 @@ commands:
           root: ./
           paths:
             - build
-            - node_modules
-            - storage/migrations
   deploy:
     parameters:
       environment:
@@ -60,10 +58,7 @@ commands:
             - << parameters.fingerprint >>
       - run:
           name: Deploy over SSH
-          command: |
-            rsync -i ~/.ssh/<< parameters.key_filename >> -r << parameters.working_directory >>/build << parameters.working_directory >>/node_modules << parameters.ssh_connection >>:<< parameters.deploy_directory >>/<< parameters.environment >>
-            rsync -i ~/.ssh/<< parameters.key_filename >> -r << parameters.working_directory >>/storage/migrations/*.ts << parameters.ssh_connection >>:<< parameters.deploy_directory >>/<< parameters.environment >>/storage/migrations
-            # MIGRATION SCRIPT ssh -i ~/.ssh/<< parameters.key_filename >> << parameters.ssh_connection >> (cd << parameters.deploy_directory >>/<< parameters.environment >> ; node node_modules/artos/bin/artos migrate)
+          command: rsync -i ~/.ssh/<< parameters.key_filename >> -r << parameters.working_directory >>/build << parameters.ssh_connection >>:<< parameters.deploy_directory >>/<< parameters.environment >>
 jobs:
   build:
     executor:
